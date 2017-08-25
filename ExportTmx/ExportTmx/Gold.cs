@@ -19,6 +19,7 @@ namespace ExportTmx
                 var tsxPath = Path.Combine(tmxDirectory, tsxRelativePath);
                 var tsxDoc = XDocument.Load(tsxPath);
                 var tsxTileset = tsxDoc.Element("tileset");
+                tsxTileset.SetAttributeValue("firstgid", tileset.Attribute("firstgid").Value);
                 var tsxImage = tsxTileset.Element("image");
                 var tsxImageSource = tsxImage.Attribute("source").Value;
                 var imagePath = Path.Combine(tsxDirectory, tsxImageSource);
@@ -32,7 +33,7 @@ namespace ExportTmx
                 var imagePath = Path.Combine(tmxDirectory, imageSource.Value);
                 var imageName = Path.GetFileName(imageSource.Value);
                 var destPath = Path.Combine(destinationPath, imageName);
-                File.Move(imagePath, destPath);
+                File.Copy(imagePath, destPath, true);
                 imageSource.SetValue(imageName);
             }
             var fullDest = Path.Combine(destinationPath, Path.GetFileName(tmxPath));
