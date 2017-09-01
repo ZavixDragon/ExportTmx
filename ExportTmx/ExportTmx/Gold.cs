@@ -24,7 +24,8 @@ namespace ExportTmx
                 var tsxImageSource = tsxImage.Attribute("source").Value;
                 var imagePath = Path.Combine(tsxDirectory, tsxImageSource);
                 tsxImage.SetAttributeValue("source", imagePath);
-                tileset.ReplaceWith(tsxTileset);
+                tileset.ReplaceAttributes(tsxTileset.Attributes());
+                tileset.ReplaceNodes(tsxTileset.Nodes());
             }
             foreach (var tileset in tilesets)
             {
